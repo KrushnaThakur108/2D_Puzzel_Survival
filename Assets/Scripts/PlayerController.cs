@@ -1,31 +1,62 @@
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
-{   
-    public float speed = 5.0f; // Speed of the player movement
-    
-    private Rigidbody2D playerRb; // Reference to the Rigidbody2D component
-    private Animator playerAnimator; // Reference to the Animator component
+{
+    public float speed = 5.0f;
+    public float joystickDeadZone = 0.2f;
 
-    private Vector2 movement; // Variable to store player movement input
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public FixedJoystick joystick;
+
+    private Rigidbody2D playerRb;
+    private Animator playerAnimator;
+
+    private Vector2 movement;
+
     void Start()
     {
-           playerRb = GetComponent<Rigidbody2D>();
-           playerAnimator = GetComponent<Animator>();
+        playerRb = GetComponent<Rigidbody2D>();
+        playerAnimator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        ReadJoystickInput();
+        UpdateAnimation();
+    }
 
-        // Lock to 4 directions
-        if (movement.x != 0)
-            movement.y = 0;
+    void FixedUpdate()
+    {
+        playerRb.MovePosition(playerRb.position + movement * speed * Time.fixedDeltaTime);
+    }
 
+    private void ReadJoystickInput()
+    {
+        float horizontal = joystick.Horizontal;
+        float vertical = joystick.Vertical;
+
+        Vector2 input = new Vector2(horizontal, vertical);
+
+        // Ignore very small joystick movement
+        if (input.magnitude < joystickDeadZone)
+        {
+            movement = Vector2.zero;
+            return;
+        }
+
+        // Lock to 4 directions based on stronger joystick direction
+        if (Mathf.Abs(horizontal) > Mathf.Abs(vertical))
+        {
+            movement = new Vector2(Mathf.Sign(horizontal), 0f);
+        }
+        else
+        {
+            movement = new Vector2(0f, Mathf.Sign(vertical));
+        }
+    }
+
+    private void UpdateAnimation()
+    {
         if (movement != Vector2.zero)
         {
             playerAnimator.SetFloat("MoveX", movement.x);
@@ -35,9 +66,4 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetFloat("Speed", movement.sqrMagnitude);
     }
 
-    // FixedUpdate is called at a fixed interval and is independent of frame rate
-    void FixedUpdate()
-    {
-        playerRb.MovePosition(playerRb.position + movement * speed * Time.fixedDeltaTime); // Move the player based on input and speed
-    }
 }

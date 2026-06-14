@@ -19,13 +19,20 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal"); // Get horizontal input
-        movement.y = Input.GetAxisRaw("Vertical"); // Get vertical input
-    
-        playerAnimator.SetFloat("Move X", movement.x);
-        playerAnimator.SetFloat("Move Y", movement.y);
-        playerAnimator.SetFloat("Speed", movement.sqrMagnitude); // Set the speed parameter based on the magnitude of movement
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
 
+        // Lock to 4 directions
+        if (movement.x != 0)
+            movement.y = 0;
+
+        if (movement != Vector2.zero)
+        {
+            playerAnimator.SetFloat("MoveX", movement.x);
+            playerAnimator.SetFloat("MoveY", movement.y);
+        }
+
+        playerAnimator.SetFloat("Speed", movement.sqrMagnitude);
     }
 
     // FixedUpdate is called at a fixed interval and is independent of frame rate

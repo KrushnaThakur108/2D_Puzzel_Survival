@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0645935418aa1844b7718d868fb3a2f, type: 3}
+  m_Name: Puzzle_01
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzleData
+  puzzleID: 1
+  puzzleName: Tutorial Puzzle
+  rows: 2
+  columns: 2
+  fullPuzzleImage: {fileID: -5019923610834326512, guid: 9119b1319a207d74c87af7030adddb4f, type: 3}
+  pieceSprites:
+  - {fileID: 5516375253710305979, guid: 2f0a53abb23224a489e116f1957c81a8, type: 3}
+  - {fileID: -3810766456177456014, guid: 0695792465570c34a952b11d1f11dc42, type: 3}
+  - {fileID: -123980223414537501, guid: 59f5474ef2aecd346bf7ace89c398542, type: 3}
+  - {fileID: -873121642577775828, guid: 18c9b906f9b8ba6419461f43b41b66e7, type: 3}

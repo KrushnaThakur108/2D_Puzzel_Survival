@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     public float joystickDeadZone = 0.2f;
 
 
-    public FixedJoystick joystick;
+    public FloatingJoystick joystick;
 
     private Rigidbody2D playerRb;
     private Animator playerAnimator;

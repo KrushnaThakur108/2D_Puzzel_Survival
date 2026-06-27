@@ -125,6 +125,18 @@ public class PuzzleBoard : MonoBehaviour
         }
     }
 
+    public void CheckPuzzleCompleted()
+    {
+        PuzzleSlot[] slots =
+            boardParent.GetComponentsInChildren<PuzzleSlot>();
 
+        foreach (PuzzleSlot slot in slots)
+        {
+            if (!slot.IsCorrect())
+                return;
+        }
+
+        PuzzleCompleted();
+    }
 
 }
